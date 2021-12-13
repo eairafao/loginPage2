@@ -1,0 +1,125 @@
+<div class="container-login">
+  <img class="logo-gps" src="/assets/Logo.svg" alt="Logo GPS" />
+  <form [formGroup]="form">
+    <h2 class="text-center">Login de usuário</h2>
+    <p class="text-error text-center" *ngIf="msgErro">{{ msgErro }}</p>
+    <div class="input-container">
+      <img src="/assets/icones/mail.svg" alt="Icone e-mail" />
+      <input id="userEmail" type="email" class="app-input" placeholder="Informe seu e-mail" formControlName="login" />
+    </div>
+
+    <div class="input-container">
+      <img src="/assets/icones/lock.svg" alt="Icone cadiado" />
+      <input type="password" class="app-input" placeholder="Informe sua senha" formControlName="senha" />
+    </div>
+
+    <button type="submit" (click)="submit()" class="btn-submit" [disabled]="form?.invalid || carregando" [attr.title]="
+        form?.invalid ? 'Preencha todos os campos corretamente !' : ''
+      ">
+      <i id="loading" class="fa fa-spinner fa-spin"></i>Entrar
+    </button>
+    <button class="btn-submit" id="cadastro" (click)="cadastro()">
+      Cadastrar-se
+    </button>
+    <div id="divEsqueciSenha">
+      <a href="#" id="esqueciSenha" (click)="toggle()">Esqueci minha senha</a>
+    </div>
+  </form>
+</div>
+
+<!-- AQUE FICA A MODAL CADASTRAR-SE CADASTRO CADASTRAR-->
+
+<ng-container *ngIf="cadastrar">
+  <div class="overlay"></div>
+  <div class="cadastro" @cadastro>
+    <h1>Faça seu cadastro</h1>
+    <form [formGroup]="formCadastro" class="formCadastrar">
+      <label class="labelCadastro">Digite seu nome completo</label><br />
+      <input type="text" name="nome" id="nomeCadastro" class="inCadastro" placeholder="Nome"
+        formControlName="nome" /><br />
+      <label class="labelCadastro">Digite seu CPF</label><br />
+      <input type="text" name="cpf" id="cpfCadastro" class="inCadastro" placeholder="CPF" formControlName="cpf" /><br />
+      <label class="labelCadastro">Digite seu e-mail</label><br />
+      <input type="email" name="email" id="emailCadastro" class="inCadastro" placeholder="E-mail"
+        formControlName="email" /><br />
+      <label class="labelCadastro">Confirme seu e-mail</label><br />
+      <input type="email" name="email" id="emailCadastro" class="inCadastro" placeholder="E-mail"
+        formControlName="email" /><br />
+      <label class="labelCadastro">Crie uma senha</label><br />
+      <input type="password" name="password" id="pwCadastro" class="inCadastro" placeholder="Digite a senha"
+        formControlName="senha" /><br />
+      <label class="labelCadastro">Confirme sua senha</label><br />
+      <input type="password" name="password" id="pwCadastro" class="inCadastro" placeholder="Digite a senha"
+        formControlName="senha" /><br />
+
+      <button class="btnCadastro" id="btnEnviarCadastro" (click)="cadastro()">
+        Cadastrar
+      </button>
+      <button class="btnCadastro" id="btnCancelarCadastro" (click)="cadastro()">
+        Cancelar
+      </button>
+    </form>
+    <ng-content></ng-content>
+  </div>
+  <div (click)="cadastro()" @overlay></div>
+</ng-container>
+<!-- AQUE ACABA A MODAL CADASTRAR-SE CADASTRO CADASTRAR-->
+
+<!--- AQUI FICA A MODAL DE ESQUECI MINHA SENHA-->
+<div>
+  <ng-container *ngIf="mostrar">
+    <div class="overlay"></div>
+    <div class="modalSenha" @modal>
+      <h1>Informe o CPF cadastrado</h1>
+      <input type="text" name="cpf" ngModel id="inSenhaEsquecida" class="app-input"
+        placeholder="Informe seu CPF" /><br />
+      <button (click)="enviouSenha()" (click)="toggle()" id="btnEnviar" class="btnModalSenha" type="submit">
+        Enviar
+      </button>
+      <button (click)="toggle()" class="btnModalSenha" id="btnCancelar">
+        Cancelar
+      </button>
+      <ng-content></ng-content>
+    </div>
+    <div (click)="toggle()" @overlay></div>
+  </ng-container>
+</div>
+<!--- AQUI ACABA A MODAL ESQUECI MINHA SENHA-->
+
+<!-- AQUI INICIA A MODAL DE INSERIR CODIGO MODAL ENVIOU SENHA-->
+<div>
+  <ng-container *ngIf="modalEnviouSenha">
+    <div class="overlay"></div>
+    <div class="modalEnviouSenha" @modalEnviouSenha>
+      <h1>Informe o código enviado para o e-mail cadastrado no CPF</h1>
+      <div id="containerCodigo">
+        <input type="text" name="codigo" ngModel id="inCodigoEnviado" class="app-input" placeholder="000-000"
+          required /><br />
+        <button (click)="inseriuCodigo()" (click)="enviouSenha()" id="btnEnviarModalSenha" class="btnModalSenha"
+          type="submit">
+          Confirmar
+        </button>
+      </div>
+      <a>Não recebi nenhum código</a>
+      <ng-content></ng-content>
+    </div>
+    <div (click)="toggle()" @overlay></div>
+  </ng-container>
+</div>
+<!-- AQUI ACABA A MODAL DE INSERIR CODIGO MODAL ENVIOU SENHA-->
+
+<div>
+  <ng-container *ngIf="modalInseriuCodigo">
+    <div class="overlay"></div>
+    <div class="modalInseriuCodigo" @modalInseriuCodigo>
+      <h1>Cadastre sua nova senha</h1>
+      <input type="password" name="senha" ngModel class="inNovaSenha" placeholder="Senha" /><br />
+      <input type="password" name="senha" ngModel class="inNovaSenha" placeholder="Confirme a senha" /><br />
+      <button (click)="inseriuCodigo()" id="btnNovaSenha" type="submit">
+        Confirmar
+      </button>
+      <ng-content></ng-content>
+    </div>
+    <div (click)="toggle()" @overlay></div>
+  </ng-container>
+</div>

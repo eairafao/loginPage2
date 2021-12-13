@@ -1,0 +1,541 @@
+@import "../../styles/variaveis.scss";
+
+.container-login {
+  height: 100%; //altura pega a pagina toda.
+  display: flex; // Ocupa o espaço todo por padrão
+  flex: 1; // Ocupa o espaço inteiro
+  flex-direction: column; // inverter para ficar como uma coluna
+  align-items: center; // centraliza os items na horizontal
+  justify-content: center; // centraliza os items na vertical
+  background: linear-gradient(
+    -90deg,
+    rgb(250, 250, 250),
+    rgb(4, 56, 87),
+    rgb(27, 76, 238),
+    rgb(3, 56, 87)
+  );
+  background-size: 400% 400%;
+  //animation: gradient 30s ease infinite;
+
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  .logo-gps {
+    width: 70%;
+    margin-bottom: 30%;
+    margin-top: 20px;
+  }
+
+  .btn-submit {
+    width: 100%; //Ocupa 100% de largura
+    height: 50px; // altura do button
+    margin-top: 50px;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 25px;
+    background: rgb(21, 43, 243);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    box-shadow: inset 3px 3px 20px -2px rgba(247, 247, 247, 0.24),
+      7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+    outline: none;
+
+    
+    #loading{
+      display: none;
+     }
+
+    &:after {
+      position: absolute;
+      content: "";
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      direction: rtl;
+      z-index: -1;
+      box-shadow: -7px -7px 20px 0px rgba(255, 255, 255, 0.699),
+        -4px -4px 5px 0px #fff9, 7px 7px 20px 0px #0002, 4px 4px 5px 0px #0001;
+      transition: all 0.3s ease;
+    }
+
+    &:hover:after {
+      left: auto;
+      right: 0;
+      width: 100%;
+
+    }
+    &:hover {
+      background-color: rgb(30, 52, 250);
+
+    }
+
+    &:active {
+      background-color: rgb(21, 43, 243);
+      top: 1px;
+    }
+
+    &:disabled {
+      color: $grayColor;
+      background: transparent;
+      cursor: auto;
+    }
+
+  }
+
+  #cadastro {
+    margin-top: 10px;
+  }
+
+  #esqueciSenha {
+    text-decoration: none;
+    color: $grayColor;
+
+    &:hover {
+      border-bottom: 1px solid $grayColor;
+    }
+  }
+  #divEsqueciSenha {
+    position: absolute;
+    margin-top: 25px;
+  }
+
+  h2 {
+    margin: 0 0 40px;
+    color: $whiteColor;
+    margin-bottom: 30px;
+    font-size: 22px;
+  }
+
+  .text-error {
+    color: $errorColor;
+    font-size: 14px;
+    margin-top: -15px;
+  }
+
+  .input-container {
+    display: flex;
+    margin-top: 18px;
+
+    img {
+      margin-right: 10px;
+    }
+
+    .icon-email {
+      margin-right: 12px;
+    }
+
+    &:first-child {
+      img {
+        margin-top: -15px;
+      }
+      .app-input {
+        margin-bottom: 18px; //pseudo classe css, pegar o primeiro elemento.  o & se refe ao propri elemento como se fosse uma concatenação
+      }
+    }
+
+    .app-input {
+      font-size: 16px;
+      color: $whiteColor;
+      border-width: 0; // retira todas as bordas
+      border-bottom: 1px solid $grayColor;
+      outline: none;
+      background: transparent;
+
+      /* mudando a cor do background autocomplete dos inputs salvos */
+      &:-webkit-autofill,
+      &:-webkit-autofill:hover,
+      &:-webkit-autofill:focus,
+      &:-webkit-autofill:active {
+        transition: background-color 5000s ease-in-out 0s;
+        -webkit-text-fill-color: white !important;
+      }
+
+      &:focus {
+        border-bottom-color: $whiteColor;
+      }
+
+      &:-ms-input-placeholder,
+      &::-ms-input-placeholder {
+        color: $grayColor;
+        opacity: 1;
+      }
+
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.411);
+      }
+    }
+  }
+
+  /*Caso seja abaixo de 1087p faça esse código a baixo */
+  @media screen and (max-width: 1087px) {
+    form {
+      width: 80%;
+      .input-container {
+        .app-input {
+          width: 80%;
+        }
+      }
+    }
+  }
+
+  @media screen and (min-width: $breakpointDesktop) {
+    // media query nivel alto desktop
+    display: flex;
+    flex-direction: row;
+
+    .logo-gps {
+      width: 40%;
+      padding: 0;
+      margin-top: 15%;
+    }
+
+    form {
+      margin-left: 15%;
+      padding: 80px 40px;
+      box-shadow: 0 15px 25px rgba(0, 0, 0, 0.61);
+      border-radius: 32px;
+
+      .input-container {
+        .app-input {
+          width: 350px;
+        }
+
+        &:first-child {
+          //pseudo classe css, pegar o primeiro elemento.  o & se refe ao propri elemento como se fosse uma concatenação
+          img {
+            margin-top: -25px;
+          }
+        }
+      }
+
+      .btn-submit {
+        margin-top: 50px;
+      }
+    }
+  }
+}
+/* Declarando modelos da modal "ESQUECI MINHA SENHA" os códigos CSS estão por ordem de escopo viewer*/
+.modalSenha {
+  background-image: linear-gradient(white, rgb(211, 211, 211));
+  border-radius: 8px;
+  box-shadow: 0 2px 8px #333;
+  min-width: 320px;
+  position: fixed;
+  left: 50%;
+  width: 50%;
+  height: 40%;
+  padding: 24px;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 11;
+  display: block;
+  box-shadow: inset 3px 3px 20px -2px rgba(247, 247, 247, 0.24),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 15px 25px rgba(1, 1, 1, 0.9);
+
+  h1 {
+    color: #0246ac;
+    font-weight: bold;
+  }
+  #inSenhaEsquecida {
+    background: transparent;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #0246ac;
+    margin-top: 20px;
+    width: 100%;
+    color: $grayColorBold;
+    padding: 8px;
+
+    &:focus {
+      border-bottom: 1px solid #0066ff;
+    }
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+      transition: background-color 5000s ease-in-out 0s;
+      -webkit-text-fill-color: $grayColorBold !important;
+    }
+  }
+
+  .btnModalSenha {
+    background-color: rgb(27, 76, 238);
+    color: white;
+    border: none;
+    border-radius: 3px;
+    display: inline-block;
+    margin-top: 50px;
+    text-align: center;
+    padding: 7px;
+  }
+  #btnEnviar {
+    margin-left: 40%;
+    margin-right: 10px;
+
+    &:disabled {
+      color: $grayColor;
+      background: rgb(187, 187, 187);
+      cursor: auto;
+      opacity: 70%;
+    }
+
+    &:hover {
+      opacity: 70%;
+    }
+  }
+  #btnCancelar {
+    margin-top: 2px;
+
+    &:hover {
+      opacity: 70%;
+      border: solid 0.5px white;
+    }
+  }
+}
+
+.modalEnviouSenha {
+  background-image: linear-gradient(white, rgb(211, 211, 211));
+  border-radius: 8px;
+  box-shadow: 0 2px 8px #333;
+  min-width: 320px;
+  position: fixed;
+  left: 50%;
+  width: 50%;
+  height: 40%;
+  padding: 24px;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 11;
+  display: block;
+  box-shadow: inset 3px 3px 20px -2px rgba(247, 247, 247, 0.24),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 15px 25px rgba(1, 1, 1, 0.9);
+
+  h1 {
+    color: #0246ac;
+    font-weight: bold;
+    font-size: 30px;
+  }
+
+  #containerCodigo{
+    text-align: center;
+  }
+
+  #inCodigoEnviado {
+    margin-top: 10px;
+    padding: 5px;
+    border: none;
+    border: $grayColor 1px solid;
+    border-radius: 10px;
+    outline: none;
+    color: $grayColorBold;
+    text-align: center;
+  }
+
+  #btnEnviarModalSenha {
+    background-color: rgb(27, 76, 238);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 10px;
+  }
+
+ 
+  a{
+    text-decoration: none;
+    color: $grayColor;
+
+    &:hover{
+      cursor: pointer;
+      color: $grayColorBold;
+      border-bottom: 1px solid $grayColorBold;
+    }
+  }
+}
+
+.modalInseriuCodigo {
+  background-image: linear-gradient(white, rgb(211, 211, 211));
+  border-radius: 8px;
+  box-shadow: 0 2px 8px #333;
+  min-width: 320px;
+  position: fixed;
+  left: 50%;
+  width: 43%;
+  height: 40%;
+  padding: 24px;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 11;
+  display: block;
+  box-shadow: inset 3px 3px 20px -2px rgba(247, 247, 247, 0.24),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 15px 25px rgba(1, 1, 1, 0.9);
+
+  h1 {
+    color: #0246ac;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .inNovaSenha {
+    background: transparent;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #0246ac;
+    margin-top: 10px;
+    width: 100%;
+    color: $grayColorBold;
+    padding: 8px;
+
+    &:focus {
+      border-bottom: 1px solid #0066ff;
+    }
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+      transition: background-color 5000s ease-in-out 0s;
+      -webkit-text-fill-color: $grayColorBold !important;
+    }
+  }
+
+  #btnNovaSenha {
+    text-align: center;
+    border: none;
+    margin-top: 17px;
+    background-color: #1b4cee;
+    color: white;
+    border-radius: 3px;
+    padding: 10px;
+  }
+}
+
+/* Fundo quando a modal estiver aberta*/
+.overlay {
+  height: 100vh;
+  left: 0;
+  opacity: 0.7;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: 10;
+  backdrop-filter: blur(20px);
+  -webkit-filter: blur(25px);
+  filter: blur(100px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+}
+
+// AQUI FICA A MODAL DE CADASTRO CADASTRAR-SE CADASTRAR
+.cadastro {
+  padding: 24px;
+  text-align: center;
+  background-image: linear-gradient(to bottom right, white, rgb(211, 211, 211));
+  border-radius: 8px;
+  box-shadow: 0 2px 8px #333;
+  min-width: 320px;
+  position: fixed;
+  left: 50%;
+  width: 30%;
+  //height: 20%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 11;
+  display: block;
+  box-shadow: inset 3px 3px 20px -2px rgba(247, 247, 247, 0.24),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 15px 25px rgba(1, 1, 1, 0.9);
+
+  .formCadastrar{
+    //position: absolute;
+    height: 90%;
+  }
+
+  h1 {
+    color: rgb(27, 76, 238);
+  }
+
+  .labelCadastro {
+    margin-top: 25px;
+    font-size: 16px;
+  }
+
+  .inCadastro {
+    background: transparent;
+    width: 75%;
+    border: none;
+    border-bottom: 1px solid rgb(27, 76, 238);
+    outline: none;
+    color: $grayColorBold;
+    text-align: center;
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+      transition: background-color 5000s ease-in-out 0s;
+      -webkit-text-fill-color: $grayColorBold !important;
+    }
+  }
+
+  .btnCadastro {
+    margin-top: 50px;
+    background-color: rgb(27, 76, 238);
+    color: white;
+    border: none;
+    border-radius: 3px;
+    display: inline-block;
+    text-align: center;
+    padding: 7px;
+
+    &:hover {
+      opacity: 80%;
+    }
+  }
+
+  #btnCancelarCadastro {
+    margin-left: 10px;
+  }
+}
+// AQUI ACABA A MODAL DE CADASTRO CADASTRAR-SE CADASTRAR
+
+/*Caso seja abaixo de 414p faça esse código a baixo */
+@media screen and (max-width: 414px) {
+  .cadastro {
+    min-width: 320px;
+    max-height: 90vmax;
+    overflow-y: scroll;
+  }
+
+  .modalSenha {
+    height: 41%;
+
+    .btnModalSenha {
+      margin: 0 auto;
+      margin-top: 30px;
+    }
+  }
+  .modalInseriuCodigo{
+    height: 50%;
+  }
+  .modalEnviouSenha{
+    height: 55%;
+  }
+}
